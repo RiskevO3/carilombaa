@@ -8,6 +8,8 @@ use App\Livewire\Auth\Passwords\Email;
 use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
+use App\Livewire\Home;
+use App\Livewire\HomeLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
-
+Route::view('/', 'welcome')->name('ham');
+Route::view('/flowtest','flowbite')->name('flowtest');
+Route::get('/home',Home::class)->name('home');
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
@@ -50,6 +53,8 @@ Route::middleware('auth')->group(function () {
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
+
+    Route::get('/loginhome',HomeLogin::class)->name('loginhome');
 
     Route::get('logout', LogoutController::class)
         ->name('logout');

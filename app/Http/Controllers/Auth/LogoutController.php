@@ -11,6 +11,7 @@ class LogoutController extends Controller
 {
     public function __invoke(): RedirectResponse
     {
+        session()->flash('success', 'Logout berhasil!, Sampai jumpa lagi '.Auth::user()->name.'!');
         Auth::logout();
 
         return redirect(route('home'));

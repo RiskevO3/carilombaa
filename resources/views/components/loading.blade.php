@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'absolute bg-black bg-opacity-25 z-10 h-full w-full items-center justify-center hidden']) }}>
+<div {{ $attributes->merge(['class' => 'fixed bg-black bg-opacity-50 z-10 h-full w-full items-center justify-center hidden']) }}>
     <div class="flex items-center">
       <svg class="animate-spin h-10 w-10 text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

@@ -32,9 +32,7 @@ class Login extends Component
     ];
 
     public function mount(){
-        if(!Auth::guest() || !in_array($this->as, ['penyelenggara', 'mahasiswa'])){
-            return redirect()->route('home');
-        }
+        $this->as = $this->as == '' ? 'default' : $this->as;
         $this->welcome_message = $this->as == 'penyelenggara' ? 'Penyelenggara Lomba!' : 'Mahasiswa Peserta Lomba!';
     }
 
@@ -47,7 +45,7 @@ class Login extends Component
 
             return;
         }
-
+        session()->flash('success', 'Login berhasil!, Selamat datang '.Auth::user()->name);
         return redirect()->intended(route('home'));
     }
 
