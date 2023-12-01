@@ -1,7 +1,6 @@
 @section('title', 'Lomba Page')
 <div>
     <x-loading wire:loading.class='flex' wire:loading.class.remove='hidden' />
-    <x-navbar/>
     <div class="container mx-auto max-w-full bg-main-red-color font-inter">
         <div class="container mx-auto py-[60px]">
             <div class="grid grid-cols-2">

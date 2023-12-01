@@ -13,7 +13,8 @@ class Home extends Component
 
     public function mount(){
         // get 3 data from lomba
-        $this->lomba_features = Lomba::take(4)->get();
+        $lomba_res = Lomba::take(3)->get();
+        $this->lomba_features = $lomba_res->count() > 0 ? $lomba_res : false;
     }
 
     public function render()

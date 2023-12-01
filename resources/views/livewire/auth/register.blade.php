@@ -13,11 +13,14 @@
                 <div class="max-w-lg  mt-8">
                     <form action="" class="" wire:submit.prevent='register'>
                         <x-input-auth type="text" placeholder="Nama" wire:model='name' class="mb-4" :error="$errors->first('name')"/>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-                        <input wire:model='image' class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
-                        @error('image')
-                        <p class="text-sm text-red-600 w-full">{{ $message }}</p>
-                        @enderror
+                        <div class="mb-4">
+                            <label class="block  text-sm font-medium text-gray-900 dark:text-white" for="file_input">User Profile</label>
+                            <input wire:model='image' class="w-full border border-gray-500 placeholder-gray-500 text-gray-500 text-sm rounded-md shadow" id="file_input" type="file">
+                            <p class="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Silahkan Masukkan Profile Picture.</p>
+                            @error('image')
+                            <p class="text-sm text-red-600 w-full">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <div class="w-full grid grid-cols-2 justify-cente gap-2 mb-4">
                             <x-input-auth type="email" placeholder="Email" wire:model='email' :error="$errors->first('email')"/>
                             <x-input-auth type="number" placeholder="No.Telp" wire:model='phone' :error="$errors->first('phone')"/>

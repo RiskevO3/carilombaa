@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Lomba extends Model
 {
@@ -46,6 +46,11 @@ class Lomba extends Model
             $model->user_id = auth()->user()->id;
             $model->is_approved = false;
             $model->is_active = true;
+        });
+
+        static::deleting(function($model){
+            // delete data image from cloudinary
+            Storage::disk('cloudinary')->delete($model->image_url);
         });
     }
 

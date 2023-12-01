@@ -41,8 +41,7 @@ class Login extends Component
         $this->validate();
 
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            $this->addError('email', trans('auth.failed'));
-
+            $this->dispatch('toast:error',message:'Login gagal!, Email atau password salah!');
             return;
         }
         session()->flash('success', 'Login berhasil!, Selamat datang '.Auth::user()->name);

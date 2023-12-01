@@ -1,6 +1,5 @@
 @section('title', 'Welcome to carilomba.com!')
 <div>
-    <x-navbar />
     <div class="container mx-auto max-w-full bg-main-red-color font-inter">
         <div class="container mx-auto">
             <div class="grid grid-cols-2">
@@ -142,6 +141,7 @@
             </div>
         </div>
     </div>
+    @if($lomba_features)
     <div class="container max-w-full mx-auto font-inter bg-main-red-color">
         <div class="container py-[60px] mx-auto">
             <div class="flex justify-between">
@@ -286,6 +286,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="container max-w-full mx-auto mt-[60px] font-inter bg-white">
         <div class="container py-[60px] mx-auto">
             <div class="flex justify-between mb-[48px]">

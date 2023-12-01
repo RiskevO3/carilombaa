@@ -57,6 +57,15 @@ class User extends Authenticatable
         $ext = end($image_extension);
         return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext;
     }
+
+    public static function boot(){
+        parent::boot();
+        static::deleting(function($model){
+            // delete data image from cloudinary
+            Storage::disk('cloudinary')->delete($model->image_url);
+        });
+    }
+
     public function mahasiswa(): HasOne
     {
         return $this->hasOne(Mahasiswa::class);
