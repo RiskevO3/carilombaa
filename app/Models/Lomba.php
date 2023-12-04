@@ -51,6 +51,7 @@ class Lomba extends Model
         static::deleting(function($model){
             // delete data image from cloudinary
             Storage::disk('cloudinary')->delete($model->image_url);
+            $model->category()->detach();
         });
     }
 
@@ -65,7 +66,7 @@ class Lomba extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function categories(): BelongsToMany
+    public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }

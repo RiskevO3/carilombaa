@@ -31,7 +31,21 @@
                     <h3 class="text-red-800 text-5xl font-semibold">Selamat Datang,</h3>
                     <p class="text-gray-600 text-xl font-normal">{{ $welcome_message }}</p>
                     <div class="max-w-lg  mt-8">
-                        <form wire:submit.prevent="authenticate">
+                        <form 
+                            x-data="{
+                                submitAuth(){
+                                    if($wire.email.length > 0 && $wire.password.length > 0){
+                                        $wire.authenticate()
+                                        return;
+                                    }
+                                    $dispatch('toast:error',{
+                                        message:'Email atau Kata Sandi tidak boleh kosong',
+                                        overlay:false,
+                                    })
+                                }
+                            }"
+                            x-on:submit.prevent='submitAuth()'
+                        >
                             <input wire:model.lazy="email" id="email" type="email"
                                 class="w-full border border-gray-500  text-black text-sm p-4 rounded-md shadow @error('email') border-red-900 text-red-900 focus:border-red-900 focus:ring-red @enderror"
                                 placeholder="Email" autofocus>

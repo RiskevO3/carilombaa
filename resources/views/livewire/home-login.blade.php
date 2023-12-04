@@ -31,9 +31,23 @@
                 <h3 class="text-stone-900 text-4xl font-semibold leading-10">
                     Lomba Tersedia
                 </h3>
-                <form wire:submit.prevent='searchLomba'>
+                <form
+                x-data="{submitSearch(){
+                    if($wire.search_lomba.length >= 5 ){
+                        $wire.searchLomba()
+                        return;
+                    }
+                    $dispatch('toast:error',{
+                        message:'Kata kunci pencarian minimal 5 karakter',
+                        overlay:false,
+                    })
+                    $wire.search_lomba = ''
+                }}"
+                 x-on:submit.prevent="submitSearch()"
+                 >
                     <div class="relative">
-                        <input type="search"
+                        <input 
+                            type="text"
                             wire:model='search_lomba'
                             class="w-[381px] py-[8px] pr-[8px] pl-[18px] border border-gray-300 text-black rounded-lg"
                             placeholder="Cari Lomba" />
@@ -72,31 +86,7 @@
             <div class="container max-w-full relative">
                 <div class="grid grid-cols-4 gap-[24px]">
                     @foreach($list_lomba as $lomba)
-                    <div class="relative overflow-hidden rounded-md shadow-lg bg-white border border-white">
-                        <img src="{{ $lomba->getImage() }}" alt="" 
-                            class="object-cover object-center" />
-                        <div class="mx-[24px]">
-                            <div class="my-2">
-                                <h1 class="text-lg font-semibold text-stone-900">
-                                    {{ $lomba->title }}
-                                </h1>
-                                <p class="text-gray-500 text-sm font-normal">
-                                    {{ $lomba->start_date->format('j F') }} - {{ $lomba->end_date->format('j F') }}
-                                </p>
-                            </div>
-                            <div class="mb-2">
-                                <p class="text-neutral-600">
-                                    {{ $lomba->short_description }}
-                                </p>
-                            </div>
-                            <div class="mb-4 mx-auto">
-                                <button
-                                    class="w-full bg-amber-500 text-base text-center rounded-md shadow-md font-semibold font-monsterrat border py-2 px-1 hover:bg-[#f8f9fa] hover:text-amber-500 hover:border-amber-500 hover:scale-95 transition ease-in relative">
-                                    Selengkapnya
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <x-lomba-card :lomba="$lomba" />
                     @endforeach
                 </div>
             </div>

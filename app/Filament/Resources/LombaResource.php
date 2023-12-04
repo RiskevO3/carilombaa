@@ -4,11 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LombaResource\Pages;
 use App\Filament\Resources\LombaResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Lomba;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,9 +32,28 @@ class LombaResource extends Resource
         return $form
             ->schema([
                 //
+                Select::make('category')->required()->relationship('category','name'),
                 TextInput::make("title")->required()->maxLength(30)->minLength(5)->unique(),
                 TextInput::make('short_description')->required()->maxLength(100)->minLength(5)->name('Short Description'),
-                RichEditor::make('description')->required()->name('Description')->minLength(5)->maxLength(700),
+                RichEditor::make('description')->required()->name('Description')->minLength(5)
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'h2',
+                    'h3',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ])
+                ->fileAttachmentsDisk('cloudinary')->columnSpanFull()
+                ,
                 TextInput::make('minimum_person')->required()->name('Minimum Person')->numeric(),
                 TextInput::make('maximum_person')->required()->name('Maximum Person')->numeric(),
                 DatePicker::make('start_date')->required()->name('Start Date'),

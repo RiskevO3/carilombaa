@@ -58,6 +58,12 @@ class User extends Authenticatable
         return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext;
     }
 
+    public function resizeImage($width, $height){
+        $image_extension = explode('.', $this->image_url);
+        $ext = end($image_extension);
+        return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext."?w=$width&h=$height&c=fill";
+    }
+
     public static function boot(){
         parent::boot();
         static::deleting(function($model){

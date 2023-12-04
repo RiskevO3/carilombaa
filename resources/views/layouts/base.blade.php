@@ -20,8 +20,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
-        @livewireScripts
-
+        @livewireScriptConfig
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
@@ -40,6 +39,19 @@
             });
             </script>
         @endif
+        @if($message=Session::get('error'))
+        <script>
+        iziToast.error({
+            title: 'error',
+            message: '{{ $message }}',
+            position: 'topRight',
+            overlay: true,
+            timeout: 5000,
+            close: true,
+            class: 'success',
+        });
+        </script>
+    @endif
         <script>
             window.addEventListener('toast:success',event=>{
                 iziToast.success({

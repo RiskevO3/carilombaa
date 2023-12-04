@@ -11,6 +11,7 @@ use App\Livewire\Auth\Verify;
 use App\Livewire\DetailLomba;
 use App\Livewire\Home;
 use App\Livewire\HomeLogin;
+use App\Livewire\ProfileDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/flowtest','flowbite')->name('flowtest');
+
 Route::get('/',Home::class)->name('home');
+
+Route::get('lomba/{uuid}',DetailLomba::class)->name('detail_lomba');
+
+
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
@@ -54,9 +60,9 @@ Route::middleware('auth')->group(function () {
         ->middleware('signed')
         ->name('verification.verify');
 
-    Route::get('lomba/{uuid}',DetailLomba::class)->name('lomba.detail');
+    Route::get('/lomba',HomeLogin::class)->name('loginhome');
 
-    Route::get('/home',HomeLogin::class)->name('loginhome');
+    Route::get('/dashboard',ProfileDetail::class)->name('dashboard');
 
     Route::get('logout', LogoutController::class)
         ->name('logout');

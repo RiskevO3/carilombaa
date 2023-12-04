@@ -162,31 +162,7 @@
             </div>
             <div class="grid grid-cols-4 mt-[28px] gap-3">
                 @foreach($lomba_features as $lomba)
-                <div class="overflow-hidden rounded-md bg-white">
-                    <img src="{{ $lomba->getImage() }}" alt="" srcset=""
-                        class="object-cover object-center" loading="lazy" />
-                    <div class="mx-[24px]">
-                        <div class="my-2">
-                            <h1 class="text-lg font-semibold text-stone-900">
-                                {{ $lomba->title }}
-                            </h1>
-                            <p class="text-gray-500 text-sm font-normal">
-                                {{ $lomba->start_date->format('j F') }} - {{ $lomba->end_date->format('j F') }}
-                            </p>
-                        </div>
-                        <div class="mb-2">
-                            <p class="text-neutral-600">
-                                {{ $lomba->short_description }}
-                            </p>
-                        </div>
-                        <div class="mb-4 mx-auto">
-                            <button
-                                class="w-full bg-amber-500 text-base text-center rounded-md shadow-md font-semibold font-inter border py-2 px-1 hover:bg-[#f8f9fa] hover:text-amber-500 hover:border-amber-500 hover:scale-95 transition ease-in relative">
-                                Selengkapnya
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <x-lomba-card :lomba="$lomba" />
                 @endforeach
             </div>
             <div class="mt-[50px] mx-auto">

@@ -1,6 +1,5 @@
-import Alpine from 'alpinejs';
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
 import intersect from '@alpinejs/intersect';
 import 'flowbite';
-window.Alpine = Alpine
 Alpine.plugin(intersect)
-Alpine.start()
+Livewire.start()

@@ -50,7 +50,7 @@
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
                     <a href="{{ route('home') }}"
-                        class="block py-2 px-3 {{ request()->is('home') ? 'text-main-red-color' : 'text-gray-900' }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-main-red-color md:p-0"
+                        class="block py-2 px-3 {{ request()->is('/') ? 'text-main-red-color' : 'text-gray-900' }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-main-red-color md:p-0"
                         >Home</a>
                 </li>
                 <li>
@@ -59,7 +59,7 @@
                 </li>
                 <li>
                     <a href="{{ route('loginhome') }}"
-                        class="block py-2 px-3 {{ request()->is('loginhome') ? 'text-main-red-color' : 'text-gray-900' }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-main-red-color md:p-0">Lomba</a>
+                        class="block py-2 px-3 {{ request()->is('lomba') ? 'text-main-red-color' : 'text-gray-900' }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-main-red-color md:p-0">Lomba</a>
                 </li>
                 <li>
                     <a href="#"

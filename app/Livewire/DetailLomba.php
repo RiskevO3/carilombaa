@@ -7,16 +7,20 @@ use Livewire\Component;
 
 class DetailLomba extends Component
 {
-    // public $lomba;
-    // public function mount($uuid){
-    //     $lomba = Lomba::where('uuid', $uuid)->first();
-    //     if($lomba){
-    //         $this->lomba = $lomba;
-    //         return;
-    //     }
-    //     session()->flash('error', 'Lomba tidak ditemukan');
-    //     return redirect()->route('home');
-    // }
+    public $lomba;
+    public $other_lomba;
+    public function mount($uuid){
+        $lomba = Lomba::where('id', $uuid)->first();
+        if($lomba){
+            $this->lomba = $lomba;
+            // get 4 other lomba except this lomba
+            $other_lomba = Lomba::where('id', '!=', $uuid)->limit(4)->get();
+            $this->other_lomba = $other_lomba;
+            return;
+        }
+        session()->flash('error', 'Lomba tidak ditemukan');
+        return redirect()->route('home');
+    }
 
     public function render()
     {

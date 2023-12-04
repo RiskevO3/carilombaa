@@ -17,7 +17,7 @@ class Category extends Model
         'description',
     ];
 
-    public function lombas():BelongsToMany
+    public function lomba():BelongsToMany
     {
         return $this->belongsToMany(Lomba::class);
     }
