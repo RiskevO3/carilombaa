@@ -44,7 +44,7 @@
                                     })
                                 }
                             }"
-                            x-on:submit.prevent='submitAuth()'
+                            wire:submit.prevent="authenticate"
                         >
                             <input wire:model.lazy="email" id="email" type="email"
                                 class="w-full border border-gray-500  text-black text-sm p-4 rounded-md shadow @error('email') border-red-900 text-red-900 focus:border-red-900 focus:ring-red @enderror"

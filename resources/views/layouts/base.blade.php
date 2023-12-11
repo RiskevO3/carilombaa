@@ -38,20 +38,22 @@
                 class: 'success',
             });
             </script>
+            {{ Session::forget('success') }}
         @endif
         @if($message=Session::get('error'))
-        <script>
-        iziToast.error({
-            title: 'error',
-            message: '{{ $message }}',
-            position: 'topRight',
-            overlay: true,
-            timeout: 5000,
-            close: true,
-            class: 'success',
-        });
-        </script>
-    @endif
+            <script>
+            iziToast.error({
+                title: 'error',
+                message: '{{ $message }}',
+                position: 'topRight',
+                overlay: true,
+                timeout: 5000,
+                close: true,
+                class: 'success',
+            });
+            </script>
+            {{ Session::forget('error') }}
+        @endif
         <script>
             window.addEventListener('toast:success',event=>{
                 iziToast.success({
@@ -81,5 +83,6 @@
                 });
             });
         </script>
-    </body>
+    @yield('scripts')    
+</body>
 </html>

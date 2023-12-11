@@ -991,14 +991,17 @@
                 Daftar Sebagai
             </p>
             <div class="w-1/4 mx-auto grid grid-cols-2 gap-[20px]">
-                <button
+                <a
+                    href="{{ route('register',['as'=>'mahasiswa'])}}"
+                    wire:navigate
                     class="bg-amber-500 rounded-lg shadow-md py-[15px] px-[18px] text-center text-sm font-semibold leading-tight text-white border border-amber-500 hover:bg-transparent hover:text-amber-500 hover:scale-95 transition ease-in relative">
                     Peserta Lomba
-                </button>
-                <button
+                </a>
+                <a
+                    href="{{ route('register',['as'=>'penyelenggara']) }}"
                     class="bg-amber-500 rounded-lg shadow-md py-[15px] px-[18px] text-center text-sm font-semibold leading-tight text-white border border-amber-500 hover:bg-transparent hover:text-amber-500 hover:scale-95 transition ease-in relative">
                     Partner Lomba
-                </button>
+            </a>
             </div>
         </div>
         <div class="container mx-auto my-[48px]">
