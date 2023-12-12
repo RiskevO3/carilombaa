@@ -9,18 +9,6 @@ use Livewire\Component;
 class Login extends Component
 {
 
-    /** @var string */
-    public $email = '';
-
-    /** @var string */
-    public $password = '';
-
-    /** @var bool */
-    public $remember = false;
-
-    /** @var bool */
-    public $loading = false;
-
     #[Url]
     public $as = '';
 
@@ -36,16 +24,22 @@ class Login extends Component
         $this->welcome_message = $this->as == 'penyelenggara' ? 'Penyelenggara Lomba!' : 'Mahasiswa Peserta Lomba!';
     }
 
-    public function authenticate()
+    public function authenticate($email,$password,$remember)
     {
-        $this->validate();
-
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            $this->dispatch('toast:error',message:'Login gagal!, Email atau password salah!');
-            return;
+        if($email == '' || $password == ''){
+            return [
+                'status'=>false,
+                'message'=>'Login gagal!, Email atau password tidak boleh kosong!'
+            ];
         }
-        session()->flash('success', 'Login berhasil!, Selamat datang '.Auth::user()->name);
-        return redirect()->intended(route('home'));
+        if (!Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
+            return [
+                'status'=>false,
+                'message'=>'Login gagal!, Email atau password salah!'
+            ];
+        }
+        session()->flash('success', 'Login berhasil!, Selamat Datang '.Auth::user()->name.'!');
+        return redirect(route('dashboard'));
     }
 
     public function render()

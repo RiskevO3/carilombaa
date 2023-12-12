@@ -12,7 +12,8 @@ class HomeLogin extends Component
     public $search_lomba = '';
 
     public function mount(){
-        $this->list_lomba = Lomba::get();
+        
+        $this->list_lomba = Lomba::with('category')->limit(16)->get();
     }
 
     public function searchLomba(){

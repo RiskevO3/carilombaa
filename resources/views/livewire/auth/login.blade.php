@@ -1,7 +1,7 @@
 @section('title', 'Sign in to your account')
-<div>
+<div x-data="login">
     {{-- overlay loading --}}
-    <x-loading wire:loading.class='flex' wire:loading.class.remove='hidden' wire:target='authenticate'>
+    <x-loading x-show="isLoading">
     </x-loading>
     {{-- end overlay loading --}}
     <x-login-register :image="$as">
@@ -32,28 +32,16 @@
                     <p class="text-gray-600 text-xl font-normal">{{ $welcome_message }}</p>
                     <div class="max-w-lg  mt-8">
                         <form 
-                            x-data="{
-                                submitAuth(){
-                                    if($wire.email.length > 0 && $wire.password.length > 0){
-                                        $wire.authenticate()
-                                        return;
-                                    }
-                                    $dispatch('toast:error',{
-                                        message:'Email atau Kata Sandi tidak boleh kosong',
-                                        overlay:false,
-                                    })
-                                }
-                            }"
-                            wire:submit.prevent="authenticate"
+                         x-on:submit.prevent="submitAuth()"
                         >
-                            <input wire:model.lazy="email" id="email" type="email"
+                            <input x-model="email" id="email" type="email"
                                 class="w-full border border-gray-500  text-black text-sm p-4 rounded-md shadow @error('email') border-red-900 text-red-900 focus:border-red-900 focus:ring-red @enderror"
                                 placeholder="Email" autofocus>
                             @error('email')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <div class="mt-4 flex w-full relative" x-data="{ showPassword: false }">
-                                <input wire:model.lazy="password" id="password"
+                                <input x-model="password" id="password"
                                     :type="showPassword ? 'text' : 'password'"
                                     class="w-full border border-gray-500  text-black text-sm p-4 rounded-md shadow @error('password') border-red-900 text-red-900 focus:border-red-900 focus:ring-red @enderror"
                                     placeholder="Kata Sandi">
@@ -68,7 +56,7 @@
                             @enderror
                             <div class="max-w-lg grid grid-cols-2 justify-between mt-[8px] text-sm">
                                 <div class="flex">
-                                    <input wire:model.lazy="remember" type="checkbox"
+                                    <input x-model="remember" type="checkbox"
                                         class="text-red-500 mr-1 w-5 h-5 border border-gray-500 rounded-md shadow-sm"
                                         id="remember" />
                                     <label for="remember" class="w-full text-gray-600">Ingat Saya</label>
@@ -87,3 +75,42 @@
         </div>
     </x-login-register>
 </div>
+@section('scripts')
+@script
+<script>
+    Alpine.data('login',()=>{
+        return {
+            email:'',
+            password:'',
+            remember:false,
+            isLoading:false,
+            async submitAuth(){
+                this.isLoading = true;
+                if(this.email.length < 1 || this.password.length <1){
+                    this.isLoading = false;
+                    iziToast.error({
+                        title:'Error',
+                        message:'Email atau Kata Sandi tidak boleh kosong',
+                        position:'topRight',
+                        overlay:false,
+                    })
+                    return;
+                }
+                let res = await $wire.authenticate(this.email,this.password,this.remember)
+                this.isLoading = false;
+                if(!res.status){
+                    iziToast.error({
+                    title:'Error',
+                    message:res.message,
+                    position:'topRight',
+                    overlay:false,
+                })
+                }
+            }
+
+
+        }
+    })
+</script>
+@endscript
+@endsection

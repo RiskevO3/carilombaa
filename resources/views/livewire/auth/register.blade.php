@@ -1,7 +1,7 @@
 @section('title', 'Create a new account')
 <div>
     {{-- overlay loading --}}
-    <x-loading wire:loading.class='flex' wire:loading.class.remove='hidden' wire:target='register'>
+    <x-loading wire:loading>
     </x-loading>
     {{-- end overlay loading --}}
     <x-login-register image="default" lazy>
@@ -94,3 +94,23 @@
         </div>
     </x-login-register>
 </div>
+@section('scripts')
+@script
+<script>
+    Alpine.data('register',()=>{
+        return{
+            name:'',
+            email:'',
+            image:'',
+            phone:'',
+            instansi:'',
+            univ:'',
+            nim:'',
+            password:'',
+            passwordConfirmation:'',
+            isLoading:false,
+        }
+    })
+</script>
+@endscript
+@endsection

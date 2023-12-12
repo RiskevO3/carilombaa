@@ -1,6 +1,6 @@
 @section('title', 'Lomba Page')
 <div>
-    <x-loading wire:loading.class='flex' wire:loading.class.remove='hidden' />
+    <x-loading wire:loading />
     <div class="container mx-auto max-w-full bg-main-red-color font-inter">
         <div class="container mx-auto py-[60px]">
             <div class="grid grid-cols-2">
@@ -37,11 +37,13 @@
                         $wire.searchLomba()
                         return;
                     }
-                    $dispatch('toast:error',{
-                        message:'Kata kunci pencarian minimal 5 karakter',
-                        overlay:false,
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Minimal 5 karakter',
+                        position: 'topRight'
                     })
                     $wire.search_lomba = ''
+                    return;
                 }}"
                  x-on:submit.prevent="submitSearch()"
                  >
