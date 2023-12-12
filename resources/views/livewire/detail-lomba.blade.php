@@ -6,7 +6,7 @@
                     <div class="w-[467px] h-[282px]">
                         <div class="inline-flex rounded border border-main-red-color px-[12px] py-[6px]">
                             <p class="text-red-800 text-base font-medium">
-                                {{ $lomba->category()->first()->name }}
+                                {{ $lomba->category->first()->name }}
                             </p>
                         </div>
                         <h1 class="mt-4 text-stone-900 text-4xl font-semibold">
@@ -16,10 +16,12 @@
                             {{ $lomba->short_description }}
                         </p>
                         <div class="mt-4 w-[301px] grid grid-cols-2 gap-[16px]">
-                            <button
-                                class="py-[14px] px-[6px] bg-red-800 border border-red-800 rounded-md shadow-md hover:scale-95 hover:opacity-75 transition ease-in text-white text-sm font-semibold leading-tight">
+                            <a
+                                wire:navigate
+                                href="{{ route('daftar_lomba', ['uuid' => $lomba->id]) }}"
+                                class="py-[14px] px-[6px] bg-red-800 border border-red-800 rounded-md shadow-md hover:scale-95 hover:opacity-75 transition ease-in text-white text-sm text-center font-semibold leading-tight">
                                 Daftar Lomba
-                            </button>
+                            </a>
                             <button
                                 class="py-[14px] px-[3px] bg-gray-50 border border-gray-300 rounded-md shadow hover:scale-95 hover:opacity-75 transition ease-in text-zinc-600 text-sm font-semibold leading-tight">
                                 Contact Person
@@ -66,7 +68,7 @@
             <div class="w-[542px] h-full flex-wrap p-[24px] rounded-md shadow-lg border border-gray-200 bg-white">
                 <div class="inline-flex rounded border border-main-red-color px-[12px] py-[6px]">
                     <p class="text-red-800 text-base text-medium font-medium">
-                        {{ $lomba->category()->first()->name }}
+                        {{ $lomba->category->first()->name }}
                     </p>
                 </div>
                 <div class="my-[16px]">
@@ -149,12 +151,14 @@
                         </label>
                     </div>
                 </div>
-                <button
+                <a
+                    wire:navigate
+                    href="{{ route('daftar_lomba', ['uuid' => $lomba->id]) }}"
                     class="flex items-center w-full h-[39px] py-[16px] px-[24px] bg-red-800 border border-red-800 rounded-md hover:opacity-75 hover:scale-95 transition ease-in">
                     <p class="mx-auto text-white font-semibold">
                         Daftar
                     </p>
-                </button>
+                </a>
             </div>
         </div>
     </div>

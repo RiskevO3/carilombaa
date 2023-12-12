@@ -1,4 +1,4 @@
-<div class="container max-w-full py-[24px] bg-white font-inter">
+<div {{ $attributes->merge(['class'=>'container max-w-full py-[24px] bg-white font-inter']) }}>
     <div class="container mx-auto py-[24px]">
         <div class="flex justify-between">
             <div class="w-[144px] h-[30px] overflow-hidden">

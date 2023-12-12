@@ -9,8 +9,10 @@ use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\DetailLomba;
+use App\Livewire\FormPendaftaranLomba;
 use App\Livewire\Home;
 use App\Livewire\HomeLogin;
+use App\Livewire\Profile;
 use App\Livewire\ProfileDetail;
 use Illuminate\Support\Facades\Route;
 
@@ -53,14 +55,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
+    
+    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+    ->middleware('signed')
+    ->name('verification.verify');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-        ->middleware('signed')
-        ->name('verification.verify');
+
+    Route::get('/daftar-lomba/{uuid}',FormPendaftaranLomba::class)->name('daftar_lomba');
 
     Route::get('/lomba',HomeLogin::class)->name('loginhome');
+
+    Route::get('/profile',Profile::class)->name('profile');
 
     Route::get('/dashboard',ProfileDetail::class)->name('dashboard');
 
