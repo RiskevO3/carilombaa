@@ -10,9 +10,8 @@ class ProfileDetail extends Component
     public $user;
 
     public function mount(){
-        $this->user = Auth::user();
+        $this->user = Auth::user()->load('mahasiswa', 'pendaftar.lomba');
     }
-
     public function render()
     {
         return view('livewire.profile-detail')->extends('layouts.app');

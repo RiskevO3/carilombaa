@@ -124,8 +124,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container max-w-full bg-white font-inter">
         <hr class="bg-gray-500" />
         <div class="container mx-auto py-[24px] px-[24px]">
             <p class="text-gray-500 text-base text-center font-normal leading-snug">

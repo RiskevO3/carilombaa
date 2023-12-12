@@ -26,7 +26,7 @@ class Pendaftar extends Model
 
     public function user(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'user_pendaftar');
     }
 
     public function transaction(): HasMany

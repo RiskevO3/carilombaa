@@ -89,7 +89,7 @@ class User extends Authenticatable
 
     public function pendaftar(): BelongsToMany
     {
-        return $this->belongsToMany(Pendaftar::class);
+        return $this->belongsToMany(Pendaftar::class,'user_pendaftar');
     }
 
     public function transaction(): HasMany
