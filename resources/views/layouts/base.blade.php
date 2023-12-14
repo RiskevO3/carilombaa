@@ -5,12 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         @hasSection('title')
-
             <title>@yield('title') - {{ config('app.name') }}</title>
         @else
             <title>{{ config('app.name') }}</title>
         @endif
-
 		<link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}">
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">

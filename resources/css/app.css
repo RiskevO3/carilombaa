@@ -6,29 +6,11 @@
 
 
 @layer components{
-    .select-fontawesome{
-		font-family: fontAwesome,Inter, sans-serif;
-	}
     .no-scrollbar::-webkit-scrollbar {
         display: none;
       }
-    .container-grid-cards{
-        @apply container max-w-full my-5 p-2 font-inter grid grid-cols-2 gap-2 md:grid-cols-4 md:p-4;
-    }
-    .grid-cards{
-        @apply  bg-blue-500 aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-lg overflow-hidden relative hover:scale-75 transition duration-500 ease-in;
-    }
 
-
-    .grid-cards-picture{
-        @apply w-full h-full object-cover object-center absolute group-hover:scale-125 group-hover:rotate-12 transition duration-500 ease-in;
-    }
-
-    .text-grid-cards{
-        @apply flex aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3];
-    }
     /* production infolomba */
-
     .navbar-grid-template{
         @apply container max-w-full h-20 2xl:h-20 mx-auto bg-white grid grid-cols-2 justify-between;
     }
