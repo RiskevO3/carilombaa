@@ -32,19 +32,19 @@
                             <div class="ml-[12px] grid grid-cols-4 gap-[8px]">
                                 <div
                                     class="w-[24px] h-[24px] bg-main-red-color rounded-md p-[6px] hover:scale-95 hover:opacity-75 transition ease-in">
-                                    <x-instagram-icon class="fill-current text-white w-[12px] h-[12px]" />
+                                    <x-icons.instagram-icon class="fill-current text-white w-[12px] h-[12px]" />
                                 </div>
                                 <div
                                     class="w-[24px] h-[24px] bg-main-red-color rounded-md p-[6px] hover:scale-95 hover:opacity-75 transition ease-in">
-                                    <x-whatsapp-icon class="fill-current text-white w-[12px] h-[12px]" />
+                                    <x-icons.whatsapp-icon class="fill-current text-white w-[12px] h-[12px]" />
                                 </div>
                                 <div
                                     class="w-[24px] h-[24px] bg-main-red-color rounded-md p-[6px] hover:scale-95 hover:opacity-75 transition ease-in">
-                                    <x-twitter-icon class="fill-current text-white w-[12px] h-[12px]" />
+                                    <x-icons.twitter-icon class="fill-current text-white w-[12px] h-[12px]" />
                                 </div>
                                 <div
                                     class="w-[24px] h-[24px] bg-main-red-color rounded-md p-[6px] hover:scale-95 hover:opacity-75 transition ease-in">
-                                    <x-chain-icon class="fill-current text-white w-[12px] h-[12px]" />
+                                    <x-icons.chain-icon class="fill-current text-white w-[12px] h-[12px]" />
                                 </div>
                             </div>
                         </div>
