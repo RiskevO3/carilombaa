@@ -35,6 +35,12 @@
     .navbar-div-item-dropdown{
         @apply flex flex-col 2xl:py-1  w-full;
     }
+    .profile-icons{
+        @apply fill-current w-[16px] h-[16px];
+    }
+    .profile-icons-unselect{
+        @apply text-gray-600 md:group-hover:text-amber-500 md:group-hover:scale-95 md:group-hover:active:scale-75 md:transition md:ease-in;
+    }
 }
 
 @property --num {
