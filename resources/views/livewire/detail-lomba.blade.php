@@ -83,7 +83,7 @@
                         <div class="mr-[8px] p-[8px] bg-gray-50 rounded-md border border-gray-300">
                             <div class="flex">
                                 <x-icons.profile-circle-icon class='w-[16px] h-[16px] text-red-800'/>
-                                <p class="ml-[4px] text-zinc-600 text-xs font-medium">{{ $lomba->user->name }}</p>
+                                <p class="ml-[4px] text-zinc-600 text-xs font-medium">{{ $lomba->penyelenggara->nama_instansi }}</p>
                             </div>
                         </div>
                         <div class="mr-[8px] p-[8px] bg-gray-50 rounded-md border border-gray-300">

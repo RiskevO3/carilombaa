@@ -14,7 +14,7 @@ class DetailLomba extends Component
         if($lomba){
             $this->lomba = $lomba;
             // get 4 other lomba except this lomba
-            $other_lomba = Lomba::select('image_url','title','start_date','end_date','short_description','id')->where('id', '!=', $uuid)->with('category')->take(4)->get();
+            $other_lomba = Lomba::select('image','title','start_date','end_date','short_description','id')->where('id', '!=', $uuid)->with('category')->take(4)->get();
             $this->other_lomba = $other_lomba;
             return;
         }

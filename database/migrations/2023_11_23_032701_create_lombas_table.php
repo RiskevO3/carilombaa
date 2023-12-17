@@ -12,22 +12,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lombas', function (Blueprint $table) {
+        Schema::create('lomba', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
-            $table->string('image_url');
+            $table->uuid('slug',50)->unique();
+            $table->uuid('penyelenggara_id')->references('id')->on('penyelenggara')->onDelete('cascade');
+            $table->uuid('category_id')->references('id')->on('category')->onDelete('cascade');
+            $table->string('image');
             $table->string('title','30');
             $table->string('short_description','100');
-            $table->string('description','700');
+            $table->longText('description');
             $table->integer('minimum_person');
             $table->integer('maximum_person');
-            $table->timestamp('start_date')->useCurrent();
-            $table->timestamp('end_date')->useCurrent();
-            $table->timestamp('registration_start_date')->useCurrent();
-            $table->timestamp('registration_end_date')->useCurrent();
+            $table->date('start_date')->require();
+            $table->date('end_date')->require();
+            $table->date('registration_start_date')->require();
+            $table->date('registration_end_date')->require();
             $table->integer('registration_fee');
             $table->boolean('is_approved');
             $table->boolean('is_active');
+            $table->timestamps();
         });
     }
 
@@ -36,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lombas');
+        Schema::dropIfExists('lomba');
     }
 };

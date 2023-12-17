@@ -58,7 +58,7 @@ class LombaResource extends Resource
                 TextInput::make('maximum_person')->required()->name('Maximum Person')->numeric(),
                 DatePicker::make('start_date')->required()->name('Start Date'),
                 DatePicker::make('end_date')->required()->name('End Date'),
-                FileUpload::make('image_url')->required()->image()->name('Image Url')->disk('cloudinary')->directory('lomba'),
+                FileUpload::make('image')->required()->image()->name('Image Url')->disk('cloudinary')->directory('lomba'),
                 DatePicker::make('registration_start_date')->required()->name('Registration Start Date'),
                 DatePicker::make('registration_end_date')->required()->name('Registration End Date'),
                 TextInput::make('registration_fee')->required()->name('Registration Fee')->numeric()

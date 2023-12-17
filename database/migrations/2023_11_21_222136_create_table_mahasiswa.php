@@ -14,10 +14,12 @@ return new class extends Migration
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
-            $table->string('nama',50)->require();
+            $table->uuid('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('jenis_kelamin',2)->require();
+            $table->string('headline',255)->require();
             $table->string('universitas',50)->require();
             $table->string('nim',50)->require();
+            $table->integer('semester')->require();
             $table->timestamps();
         });
     }

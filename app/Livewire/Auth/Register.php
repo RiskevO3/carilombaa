@@ -91,9 +91,8 @@ class Register extends Component
             'email' => $this->email,
             'name' => $this->name,
             'phone'=> $this->phone,
-            'image_url'=> $image_upload,
+            'image'=> $image_upload,
             'role'=> $this->as,
-            'is_verified'=> false,
             'password' => Hash::make($this->password),
         ]);
         if(!$user){
@@ -103,6 +102,7 @@ class Register extends Component
         }
         if($this->as == 'mahasiswa'){
             $user_role = $user->mahasiswa()->create([
+                'user_id'=> $user->id,
                 'nim' => $this->nim,
                 'universitas' => $this->univ,
             ]);

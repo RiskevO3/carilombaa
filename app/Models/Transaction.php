@@ -14,7 +14,6 @@ class Transaction extends Model
 
     protected $fillable = [
         'pendaftar_id',
-        'user_id',
         'unique_id',
         'transaction_id',
         'status',
@@ -31,9 +30,8 @@ class Transaction extends Model
     {
         return $this->belongsTo(Pendaftar::class);
     }
-
-    public function user(): BelongsTo
+    public function paymentMethod(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(PaymentMethod::class);
     }
 }

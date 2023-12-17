@@ -14,8 +14,9 @@ return new class extends Migration
     {
         Schema::create('penyelenggara', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
+            $table->uuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_instansi',50)->require();
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });
     }

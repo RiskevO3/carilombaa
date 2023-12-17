@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('payment_method_id')->references('id')->on('payment_methods')->onDelete('cascade');
             $table->uuid('pendaftar_id')->references('id')->on('pendaftar')->onDelete('cascade');
-            $table->uuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('unique_id',50);
             $table->string('transaction_id',50);
             $table->string('status',10);

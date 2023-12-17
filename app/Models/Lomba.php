@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,10 +13,12 @@ class Lomba extends Model
 {
     use HasFactory;
     use HasUuids;
+    protected $table = 'lomba';
     protected $fillable = [
-        'user_id',
-        'image_url',
+        'penyelenggara_id',
+        'image',
         'title',
+        'slug',
         'short_description',
         'description',
         'minimum_person',
@@ -41,7 +43,7 @@ class Lomba extends Model
     public static function boot()
     {
         parent::boot();
-
+        // change this to penyelenggara
         static::creating(function ($model) {
             $model->user_id = auth()->user()->id;
             $model->is_approved = false;
@@ -50,28 +52,28 @@ class Lomba extends Model
 
         static::deleting(function($model){
             // delete data image from cloudinary
-            Storage::disk('cloudinary')->delete($model->image_url);
+            Storage::disk('cloudinary')->delete($model->image);
             $model->category()->detach();
         });
     }
 
     public function getImage(){
-        $image_extension = explode('.', $this->image_url);
+        $image_extension = explode('.', $this->image);
         $ext = end($image_extension);
-        return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext;
+        return env('CLOUDINARY_URL') .$this->image.'.'.$ext;
     }
 
-    public function user()
+    public function penyelenggara()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Penyelenggara::class);
     }
 
-    public function category(): BelongsToMany
+    public function category(): BelongsTo
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
-    public function pendaftars(): HasMany
+    public function pendaftar(): HasMany
     {
         return $this->hasMany(Pendaftar::class);
     }

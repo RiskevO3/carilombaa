@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasUuids;
     /**
      * The attributes that are mass assignable.
      *
@@ -26,8 +27,7 @@ class User extends Authenticatable
         'name',
         'phone',
         'role',
-        'image_url',
-        'is_verified',
+        'image',
         'password',
     ];
 
@@ -53,22 +53,22 @@ class User extends Authenticatable
     ];
 
     public function getImage(){
-        $image_extension = explode('.', $this->image_url);
+        $image_extension = explode('.', $this->image);
         $ext = end($image_extension);
-        return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext;
+        return env('CLOUDINARY_URL') .$this->image.'.'.$ext;
     }
 
     public function resizeImage($width, $height){
-        $image_extension = explode('.', $this->image_url);
+        $image_extension = explode('.', $this->image);
         $ext = end($image_extension);
-        return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext."?w=$width&h=$height&c=fill";
+        return env('CLOUDINARY_URL') .$this->image.'.'.$ext."?w=$width&h=$height&c=fill";
     }
 
     public static function boot(){
         parent::boot();
         static::deleting(function($model){
             // delete data image from cloudinary
-            Storage::disk('cloudinary')->delete($model->image_url);
+            Storage::disk('cloudinary')->delete($model->image);
         });
     }
 
@@ -80,20 +80,5 @@ class User extends Authenticatable
     public function penyelenggara(): HasOne
     {
         return $this->hasOne(Penyelenggara::class);
-    }
-
-    public function lomba(): HasMany
-    {
-        return $this->hasMany(Lomba::class);
-    }
-
-    public function pendaftar(): BelongsToMany
-    {
-        return $this->belongsToMany(Pendaftar::class,'user_pendaftar');
-    }
-
-    public function transaction(): HasMany
-    {
-        return $this->hasMany(Transaction::class);
     }
 }
