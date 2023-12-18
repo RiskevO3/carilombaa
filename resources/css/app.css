@@ -1,0 +1,54 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+    /* production infolomba */
+    .navbar-grid-template{
+        @apply container max-w-full h-20 2xl:h-20 mx-auto bg-white grid grid-cols-2 justify-between;
+    }
+
+    .navbar-item-grid{
+        @apply grid grid-cols-6 gap-1 mx-auto my-2 justify-center;
+    }
+    
+    .navbar-item-logo{
+        @apply w-1/5 h-full m-6 2xl:m-5;
+    }
+
+    .navbar-item-card{
+        @apply py-5 2xl:px-5 text-[#343a40] font-semibold text-center;
+    }
+    .navbar-div-item-button{
+        @apply flex 2xl:py-1  w-full;
+    }
+    .navbar-item-button{
+        @apply m-auto py-2 2xl:py-4 px-2 rounded-md border font-semibold text-center;
+    }
+    .navbar-div-item-dropdown{
+        @apply flex flex-col 2xl:py-1  w-full;
+    }
+    .profile-icons{
+        @apply fill-current w-[16px] h-[16px];
+    }
+    .profile-icons-unselect{
+        @apply text-gray-600 md:group-hover:text-amber-500 md:group-hover:scale-95 md:group-hover:active:scale-75 md:transition md:ease-in;
+    }
+}
+
+@property --num {
+        syntax: '<integer>';
+        initial-value: 0;
+        inherits: false;
+    }
+
+[x-cloak] {
+    display: none;
+}
