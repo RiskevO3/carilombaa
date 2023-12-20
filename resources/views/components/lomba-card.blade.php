@@ -36,7 +36,7 @@
         </div>
         <div class="mb-2">
             <p class="text-neutral-600">
-                {{ Str::words($lomba->short_description, 11, ' ...') }}
+                {{ Str::words($lomba->short_description, 5, ' ...') }}
             </p>
         </div>
         <div class="mb-4 mx-auto">

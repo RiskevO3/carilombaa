@@ -9,10 +9,12 @@ use App\Models\Lomba;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -22,7 +24,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-
 class LombaResource extends Resource
 {
     protected static ?string $model = Lomba::class;
@@ -73,6 +74,29 @@ class LombaResource extends Resource
                 DatePicker::make('registration_end_date')->required()->name('Registration End Date'),
                 DatePicker::make('start_date')->required()->name('Start Date'),
                 DatePicker::make('end_date')->required()->name('End Date'),
+                Select::make('location')
+                ->options([
+                    '0' => 'Online',
+                    '1' => 'Offline',
+                ])
+                ->columnSpanFull()
+                ->live()
+                ->afterStateUpdated(fn (Select $component) => $component
+                    ->getContainer()
+                    ->getComponent('dynamicTypeFields')
+                    ->getChildComponentContainer()
+                    ->fill())
+                ,
+                Grid::make(1)
+                ->schema(fn (Get $get): array => match ($get('location')) {
+                    '0' => [
+                    ],
+                    '1' => [
+                        TextInput::make('location_detail')->name('Location Detail')->required()
+                    ],
+                    default => [],
+                })
+                ->key('dynamicTypeFields'),
                 FileUpload::make('image')->required()->image()->name('Image Url')->disk('cloudinary')->directory('lomba')->columnSpanFull(),
                 TextInput::make('registration_fee')->required()->name('Registration Fee')->numeric()->columnSpanFull()
             ]);

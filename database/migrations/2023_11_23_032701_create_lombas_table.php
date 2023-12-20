@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Lomba;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,7 +29,9 @@ return new class extends Migration
             $table->date('registration_start_date')->require();
             $table->date('registration_end_date')->require();
             $table->integer('registration_fee');
-            $table->boolean('is_approved');
+            $table->integer('location')->default(Lomba::LOCATION_DEFAULT);
+            $table->string('location_detail')->default('online');
+            $table->integer('status')->default(Lomba::STATUS_DEFAULT);
             $table->boolean('is_active');
             $table->timestamps();
         });

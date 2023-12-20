@@ -13,6 +13,25 @@ class Lomba extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    CONST STATUS_PENDING = 0;
+    CONST STATUS_APPROVED = 1;
+    CONST STATUS_REJECTED = 2;
+    CONST STATUS_DEFAULT = self::STATUS_PENDING;
+    CONST STATUS = [
+        self::STATUS_PENDING => 'Pending',
+        self::STATUS_APPROVED => 'Approved',
+        self::STATUS_REJECTED => 'Rejected',
+    ];
+
+    CONST LOCATION_ONLINE = 0;
+    CONST LOCATION_OFFLINE = 1;
+    CONST LOCATION_DEFAULT = self::LOCATION_ONLINE;
+    CONST LOCATION = [
+        self::LOCATION_ONLINE => 'Online',
+        self::LOCATION_OFFLINE => 'Offline',
+    ];
+
     protected $table = 'lomba';
     protected $fillable = [
         'penyelenggara_id',
@@ -29,7 +48,9 @@ class Lomba extends Model
         'registration_start_date',
         'registration_end_date',
         'registration_fee',
-        'is_approved',
+        'location',
+        'location_detail',
+        'status',
         'is_active',
     ];
 
@@ -47,7 +68,6 @@ class Lomba extends Model
         // change this to penyelenggara
         static::creating(function ($model) {
             $model->penyelenggara_id = auth()->user()->penyelenggara->id;
-            $model->is_approved = false;
             $model->is_active = true;
         });
 

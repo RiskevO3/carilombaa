@@ -1,5 +1,5 @@
 @auth
-<div x-data="{ modelOpen: false }" x-cloak>
+<div x-data="{modelOpen:false}" x-cloak>
   <nav class="bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{{ route('loginhome') }}" wire:navigate class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -10,7 +10,7 @@
                 class="w-9 h-9 overflow-hidden  text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
-                <img class="w-full h-full object-cover object-center" src="{{Auth::user()->image ? Auth::user()->getImage() : asset('assets/images/default-profile.png') }}" alt="user photo"/>
+                <img class="w-full h-full object-cover object-center" src="{{Auth::user()->image ? Auth::user()->resizeImage(36,36) : asset('assets/images/default-profile.png') }}" alt="user photo"/>
             </button>
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                 id="user-dropdown">
@@ -39,7 +39,7 @@
                     @endif
                     <li>
                         <button 
-                          @click="modelOpen = true"
+                          x-on:click="modelOpen = true"
                           class="block w-full px-4 py-2 text-sm text-start text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                           >
                           Keluar
@@ -84,7 +84,7 @@
     <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
         aria-modal="true">
         <div class="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
-            <div x-cloak @click="modelOpen = true" x-show="modelOpen"
+            <div x-cloak x-on:click="modelOpen = true" x-show="modelOpen"
                 x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200 transform"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -100,7 +100,7 @@
                 <div class="flex items-center justify-between space-x-4">
                     <h1 class="text-xl font-bold text-gray-800 ">Apakah Kamu Yakin Untuk Keluar?</h1>
                     <div class="flex justify-end">
-                      <button for="show" @click="modelOpen = false" type="button"
+                      <button for="show" x-on:click="modelOpen = false" type="button"
                           class="mr-2 px-2 py-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-500 hover:bg-gray-600 rounded-md shadow-md">
                           Cancel
                       </button>
@@ -117,7 +117,7 @@
 </div>
 @else
 <nav class="container max-w-screen-2xl bg-white border-gray-200">
-<div class="flex items-center justify-between py-[24px] px-[70px]">
+<div class="flex items-center justify-between p-4">
     <img src="{{ asset('assets/images/logo-carilomba.png') }}" alt="" srcset="" class="h-[30px] w-[144px] object-cover object-center"/>
     <div class="flex items-center space-x-[32px]">
         <div class="flex items-center space-x-[24px]">

@@ -1,7 +1,7 @@
-<div class="bg-white" x-data="register" x-cloak>
+<div class="bg-white" x-data="register" x-init="initRegister()" x-cloak>
     <div class="container max-w-full p-[20px] md:py-[70px] md:px-[60px]">
         <h1 class="text-red-800 text-[32px] font-semibold">
-            Form Pendaftaran Lomba : <span class="text-zinc-900">{{$namaLomba}}</span>
+            Form Pendaftaran Lomba : <span class="text-zinc-900" x-text="lombaTitle"></span>
         </h1>
         <div class="container mt-[60px] flex flex-col space-y-[24px]">
             <div class="container">
@@ -14,8 +14,9 @@
             <div class="container">
                 <div class="flex justify-between">
                     <h3 class="text-stone-900 text-2xl font-medium">Peserta Ke-1 <span class="text-red-800">*</span></h3>
-                    <button class="w-[32px] h-[32px] bg-red-800 rounded-full flex hover:scale-95 hover:opacity-75 transition ease-in self-center"
+                    <button class="disabled:hidden w-[32px] h-[32px] bg-red-800 rounded-full flex hover:scale-95 hover:opacity-75 transition ease-in self-center"
                     x-on:click="increment()"
+                    :disabled="counter+1 == maxAttendant"
                     >
                     <x-icons.plus-icon class='m-auto w-[20px] h-[20px] text-white'/>
                     </button>
@@ -112,6 +113,13 @@
     Alpine.data('register',()=>{
         return{
             counter:0,
+            maxAttendant:0,
+            lombaTitle:'',
+            async initRegister(){
+                let response = await $wire.getLomba();
+                this.maxAttendant = response.maximum_person;
+                this.lombaTitle = response.title;
+            },
             increment(){
                 this.counter++
             },

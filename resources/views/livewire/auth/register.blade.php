@@ -1,7 +1,7 @@
 @section('title', 'Create a new account')
 <div>
     {{-- overlay loading --}}
-    <x-loading wire:loading>
+    <x-loading wire:loading wire:target='register'>
     </x-loading>
     {{-- end overlay loading --}}
     <x-login-register image="default" lazy>

@@ -42,6 +42,8 @@ Route::get('google/auth/callback',[authController::class,'googleAuthCallback']);
 
 Route::get('dikti/{name}',[authController::class,'getDiktiVerification']);
 
+
+
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
@@ -57,6 +59,8 @@ Route::get('password/reset/{token}', Reset::class)
     ->name('password.reset');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/daftar-lomba/{slug}',FormPendaftaranLomba::class)->name('daftar_lomba');
+
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');
@@ -70,8 +74,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-
-    Route::get('/daftar-lomba/{uuid}',FormPendaftaranLomba::class)->name('daftar_lomba');
 
     Route::get('/lomba',HomeLogin::class)->name('loginhome');
 

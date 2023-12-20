@@ -13,7 +13,7 @@ class Profile extends Component
         $userMahasiswa = $user->mahasiswa;
         $userData['name'] = $user->name;
         $userData['email'] = $user->email;
-        $userData['image'] = $user->getImage();
+        $userData['image'] = $user->resizeImage(1000,1000);
         $userData['phone'] = $user->phone;
         $userData['headline'] = $userMahasiswa->headline;
         $userData['universitas'] = $userMahasiswa->universitas;

@@ -74,7 +74,7 @@ class User extends Authenticatable implements FilamentUser
     public function resizeImage($width, $height){
         $image_extension = explode('.', $this->image);
         $ext = end($image_extension);
-        return env('CLOUDINARY_URL') .$this->image.'.'.$ext."?w=$width&h=$height&c=fill";
+        return env('CLOUDINARY_RESIZE').',h_'.$height.',w_'.$width.'/v1701024062'.'/'.$this->image.'.'.$ext;
     }
 
     public static function boot(){
