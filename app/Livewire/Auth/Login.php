@@ -39,7 +39,7 @@ class Login extends Component
             ];
         }
         session()->flash('success', 'Login berhasil!, Selamat Datang '.Auth::user()->name.'!');
-        return redirect('/admin');
+        return redirect('/penyelenggara');
     }
 
     public function render()
