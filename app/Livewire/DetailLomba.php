@@ -9,12 +9,12 @@ class DetailLomba extends Component
 {
     public $lomba;
     public $other_lomba;
-    public function mount($uuid){
-        $lomba = Lomba::where('id', $uuid)->with('category','user')->first();
-        if($lomba){
+    public function mount($slug){
+        $lomba = Lomba::where('slug', $slug)->with('category','penyelenggara')->first();
+        if($lomba && $lomba->status == Lomba::STATUS_APPROVED){
             $this->lomba = $lomba;
             // get 4 other lomba except this lomba
-            $other_lomba = Lomba::select('image_url','title','start_date','end_date','short_description','id')->where('id', '!=', $uuid)->with('category')->take(4)->get();
+            $other_lomba = Lomba::select('image','title','start_date','end_date','short_description','id','category_id','slug','location','location_detail')->where('id', '!=', $lomba->id)->with('category')->take(4)->get();
             $this->other_lomba = $other_lomba;
             return;
         }

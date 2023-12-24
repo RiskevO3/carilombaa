@@ -18,13 +18,13 @@
                 <div class="w-full pt-6">
                     <h3 class="text-white text-5xl font-semibold leading-[48px]">{{ $user->name }}</h3>
                     <h6 class="my-2 text-white text-xl font-normal leading-normal">
-                        Mahasiswa Semester 5 di Universitas {{ $user->mahasiswa->universitas}}
+                        Mahasiswa Semester 5 di {{ $user->mahasiswa->universitas}}
                     </h6>
                     <div class="flex">
                         <div class="flex items-center py-[8px] px-[12px] bg-amber-500 rounded">
                             <x-icons.medal-icon class="w-[16px] h-[16px]  text-white"/>
                             <p class="ml-[8px] text-white text-base font-normal leading-normal">
-                                {{ $user->pendaftar->count() > 0 ? $user->pendaftar->count() : 'Belum Mengikuti' }} Lomba
+                                {{ $user->mahasiswa->pendaftar->count() > 0 ? $user->mahasiswa->pendaftar->count() : 'Belum Mengikuti' }} Lomba
                             </p>
                         </div>
                         <div class="ml-[12px] flex items-center py-[8px] px-[12px] bg-amber-500 rounded">
@@ -36,7 +36,7 @@
                         <div class="ml-[12px] flex items-center py-[8px] px-[12px] bg-amber-500 rounded">
                             <x-icons.location-icon class="w-[16px] h-[16px]  text-white"/>
                             <p class="ml-[8px] text-white text-base font-normal leading-normal">
-                                Universitas {{ $user->mahasiswa->universitas }}
+                                {{ $user->mahasiswa->universitas }}
                             </p>
                         </div>
                     </div>
@@ -63,13 +63,13 @@
                     </div>
                 </div>
             </div>
-            @if($user->pendaftar->count() < 1)
+            @if($user->mahasiswa->pendaftar->count() < 1)
             <div class="h-[300px] flex justify-center items-center">
                 <h3 class="text-xl text-zinc-700">Anda Belum Mengikuti Lomba...</h3>
             </div>
             @else
             <div class="grid grid-cols-3 gap-[24px]">
-                @foreach ($user->pendaftar as $lomba)
+                @foreach ($user->mahasiswa->pendaftar->lomba as $lomba)
                     <x-lomba-card :lomba="$lomba" :user='true' />
                 @endforeach
             </div>

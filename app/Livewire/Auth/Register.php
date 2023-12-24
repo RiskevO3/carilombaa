@@ -27,12 +27,6 @@ class Register extends Component
 
     /** @var string */
     public $instansi = '';
-
-    /** @var string */
-    public $nim = '';
-
-    /** @var string */
-    public $univ;
     
     /** @var string */
     public $password = '';
@@ -54,8 +48,6 @@ class Register extends Component
         'password' => ['required', 'min:8', 'same:passwordConfirmation'],
         'phone' => ['required'],
         'instansi' => ['required'],
-        'nim' => ['required'],
-        'univ' => ['required'],
         'image' => ['required', 'image', 'max:1024'],
     ];
 
@@ -75,7 +67,6 @@ class Register extends Component
             return redirect()->route('home');
         }
         if ($this->as === 'mahasiswa') $this->validation_array = $this->array_except($this->validation_array, ['instansi']);
-        elseif ($this->as === 'penyelenggara') $this->validation_array = $this->array_except($this->validation_array, ['nim', 'univ']);
     }
 
     public function register()
@@ -91,9 +82,8 @@ class Register extends Component
             'email' => $this->email,
             'name' => $this->name,
             'phone'=> $this->phone,
-            'image_url'=> $image_upload,
+            'image'=> $image_upload,
             'role'=> $this->as,
-            'is_verified'=> false,
             'password' => Hash::make($this->password),
         ]);
         if(!$user){
@@ -101,12 +91,7 @@ class Register extends Component
             session()->flash('error', 'Registrasi gagal!');
             return redirect()->intended(route('home'));
         }
-        if($this->as == 'mahasiswa'){
-            $user_role = $user->mahasiswa()->create([
-                'nim' => $this->nim,
-                'universitas' => $this->univ,
-            ]);
-        }elseif($this->as=='penyelenggara'){
+        if($this->as=='penyelenggara'){
             $user_role = $user->penyelenggara()->create([
                 'nama_instansi' => $this->instansi,
             ]);

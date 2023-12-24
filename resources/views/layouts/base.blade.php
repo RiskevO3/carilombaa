@@ -81,6 +81,11 @@
                 });
             });
         </script>
+        <script data-navigate-once>
+            document.addEventListener('livewire:navigated',()=>{
+                initFlowbite()
+            })
+        </script>
     @yield('scripts')    
 </body>
 </html>

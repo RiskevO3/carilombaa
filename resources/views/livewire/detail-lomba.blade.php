@@ -6,7 +6,7 @@
                     <div class="w-[467px] h-[282px]">
                         <div class="inline-flex rounded border border-main-red-color px-[12px] py-[6px]">
                             <p class="text-red-800 text-base font-medium">
-                                {{ $lomba->category->first()->name }}
+                                {{ $lomba->category->name }}
                             </p>
                         </div>
                         <h1 class="mt-4 text-stone-900 text-4xl font-semibold">
@@ -18,9 +18,9 @@
                         <div class="mt-4 w-[301px] grid grid-cols-2 gap-[16px]">
                             <a
                                 wire:navigate
-                                href="{{ route('daftar_lomba', ['uuid' => $lomba->id]) }}"
+                                href="{{Auth::user() ? route('daftar_lomba', ['slug' => $lomba->slug]) : route('login') }}"
                                 class="py-[14px] px-[6px] bg-red-800 border border-red-800 rounded-md shadow-md hover:scale-95 hover:opacity-75 transition ease-in text-white text-sm text-center font-semibold leading-tight">
-                                Daftar Lomba
+                                Daftar
                             </a>
                             <button
                                 class="py-[14px] px-[3px] bg-gray-50 border border-gray-300 rounded-md shadow hover:scale-95 hover:opacity-75 transition ease-in text-zinc-600 text-sm font-semibold leading-tight">
@@ -68,7 +68,7 @@
             <div class="w-[542px] h-full flex-wrap p-[24px] rounded-md shadow-lg border border-gray-200 bg-white">
                 <div class="inline-flex rounded border border-main-red-color px-[12px] py-[6px]">
                     <p class="text-red-800 text-base text-medium font-medium">
-                        {{ $lomba->category->first()->name }}
+                        {{ $lomba->category->name }}
                     </p>
                 </div>
                 <div class="my-[16px]">
@@ -77,13 +77,13 @@
                         <div class="mr-[8px] p-[8px] bg-gray-50 rounded-md border border-gray-300">
                             <div class="flex">
                                 <x-icons.location-icon class='w-[16px] h-[16px] text-red-800'/>
-                                <p class="ml-[4px] text-zinc-600 text-xs font-medium">Online</p>
+                                <p class="ml-[4px] text-zinc-600 text-xs font-medium">{{ $lomba->location_detail != 'online' ? $lomba->location_detail : 'online' }}</p>
                             </div>
                         </div>
                         <div class="mr-[8px] p-[8px] bg-gray-50 rounded-md border border-gray-300">
                             <div class="flex">
                                 <x-icons.profile-circle-icon class='w-[16px] h-[16px] text-red-800'/>
-                                <p class="ml-[4px] text-zinc-600 text-xs font-medium">{{ $lomba->user->name }}</p>
+                                <p class="ml-[4px] text-zinc-600 text-xs font-medium">{{ $lomba->penyelenggara->nama_instansi }}</p>
                             </div>
                         </div>
                         <div class="mr-[8px] p-[8px] bg-gray-50 rounded-md border border-gray-300">
@@ -126,7 +126,7 @@
                 </div>
                 <a
                     wire:navigate
-                    href="{{ route('daftar_lomba', ['uuid' => $lomba->id]) }}"
+                    href="{{ Auth::user() ? route('daftar_lomba', ['slug' => $lomba->slug]) : route('login') }}"
                     class="flex items-center w-full h-[39px] py-[16px] px-[24px] bg-red-800 border border-red-800 rounded-md hover:opacity-75 hover:scale-95 transition ease-in">
                     <p class="mx-auto text-white font-semibold">
                         Daftar
@@ -140,8 +140,8 @@
             Lomba Lainya
         </h3>
         <div class="mt-[28px] grid grid-cols-4 gap-4">
-            @foreach ($other_lomba as $lomba)
-            <x-lomba-card :lomba="$lomba" />
+            @foreach ($other_lomba as $lombas)
+            <x-lomba-card :lomba="$lombas" />
             @endforeach
         </div>
     </div>

@@ -9,32 +9,46 @@ use App\Models\Lomba;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Illuminate\Support\Str;
 class LombaResource extends Resource
 {
     protected static ?string $model = Lomba::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Daftar Lomba';
+    protected static ?string $navigationIcon = 'icon-calendar-check';
 
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                TextInput::make("title")->required()->maxLength(30)->minLength(5)
+                ->live(debounce:300)
+                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                ->unique()
+                ,
+                TextInput::make('slug')->required()->name('Slug')->unique(),
                 //
-                Select::make('category')->required()->relationship('category','name'),
-                TextInput::make("title")->required()->maxLength(30)->minLength(5)->unique(),
-                TextInput::make('short_description')->required()->maxLength(100)->minLength(5)->name('Short Description'),
+                Select::make('category_id')
+                ->required()
+                ->relationship('category','name')
+                ->name('Category')
+                ->columnSpanFull()
+                ,
+                TextInput::make('short_description')->required()->maxLength(100)->minLength(5)->name('Short Description')->columnSpanFull(),
                 RichEditor::make('description')->required()->name('Description')->minLength(5)
                 ->toolbarButtons([
                     'attachFiles',
@@ -54,14 +68,37 @@ class LombaResource extends Resource
                 ])
                 ->fileAttachmentsDisk('cloudinary')->columnSpanFull()
                 ,
-                TextInput::make('minimum_person')->required()->name('Minimum Person')->numeric(),
-                TextInput::make('maximum_person')->required()->name('Maximum Person')->numeric(),
-                DatePicker::make('start_date')->required()->name('Start Date'),
-                DatePicker::make('end_date')->required()->name('End Date'),
-                FileUpload::make('image_url')->required()->image()->name('Image Url')->disk('cloudinary')->directory('lomba'),
+                TextInput::make('minimum_person')->required()->name('Minimum Person')->numeric()->minValue(1),
+                TextInput::make('maximum_person')->required()->name('Maximum Person')->numeric()->minValue(1),
                 DatePicker::make('registration_start_date')->required()->name('Registration Start Date'),
                 DatePicker::make('registration_end_date')->required()->name('Registration End Date'),
-                TextInput::make('registration_fee')->required()->name('Registration Fee')->numeric()
+                DatePicker::make('start_date')->required()->name('Start Date'),
+                DatePicker::make('end_date')->required()->name('End Date'),
+                Select::make('location')
+                ->options([
+                    '0' => 'Online',
+                    '1' => 'Offline',
+                ])
+                ->columnSpanFull()
+                ->live()
+                ->afterStateUpdated(fn (Select $component) => $component
+                    ->getContainer()
+                    ->getComponent('dynamicTypeFields')
+                    ->getChildComponentContainer()
+                    ->fill())
+                ,
+                Grid::make(1)
+                ->schema(fn (Get $get): array => match ($get('location')) {
+                    '0' => [
+                    ],
+                    '1' => [
+                        TextInput::make('location_detail')->name('Location Detail')->required()
+                    ],
+                    default => [],
+                })
+                ->key('dynamicTypeFields'),
+                FileUpload::make('image')->required()->image()->name('Image Url')->disk('cloudinary')->directory('lomba')->columnSpanFull(),
+                TextInput::make('registration_fee')->required()->name('Registration Fee')->numeric()->columnSpanFull()
             ]);
     }
     
@@ -69,7 +106,9 @@ class LombaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title'),
+                TextColumn::make('category.name')->label('Category'),
+                TextColumn::make('registration_fee')
             ])
             ->filters([
                 //

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users_pendaftars', function (Blueprint $table) {
+        Schema::create('mahasiswa_pendaftar', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->uuid('pendaftar_id')->references('id')->on('pendaftars')->onDelete('cascade');
+            $table->uuid('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
+            $table->uuid('pendaftar_id')->references('id')->on('pendaftar')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_pendaftars');
+        Schema::dropIfExists('mahasiswa_pendaftar');
     }
 };

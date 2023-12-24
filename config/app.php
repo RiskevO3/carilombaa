@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use SocialiteProviders\Manager\ServiceProvider as ManagerServiceProvider;
 
 return [
 
@@ -169,6 +170,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+        ManagerServiceProvider::class,
     ])->toArray(),
 
     /*

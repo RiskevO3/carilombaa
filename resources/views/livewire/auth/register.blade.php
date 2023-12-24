@@ -1,7 +1,7 @@
 @section('title', 'Create a new account')
 <div>
     {{-- overlay loading --}}
-    <x-loading wire:loading>
+    <x-loading wire:loading wire:target='register'>
     </x-loading>
     {{-- end overlay loading --}}
     <x-login-register image="default" lazy>
@@ -11,63 +11,61 @@
                     <h3 class="text-red-800 text-3xl font-semibold">Buat Akun</h3>
                     <p class="text-gray-500 text-xl font-normal">Masukkan data diri untuk membuat akun</p>
                     <div class="max-w-lg  mt-8">
-                        <form 
-                        action="" 
-                        class=""
-                        wire:submit.prevent='register'
-                        >
-                            <x-input-auth type="text" placeholder="Nama" wire:model='name' class="mb-4"
-                                :error="$errors->first('name')" />
-                            <div class="mb-4">
-                                <label class="block  text-sm font-medium text-gray-900 dark:text-white"
-                                    for="file_input">User Profile</label>
-                                <input wire:model='image'
-                                    class="w-full border border-gray-500 placeholder-gray-500 text-gray-500 text-sm rounded-md shadow"
-                                    id="file_input" type="file">
-                                <p class="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Silahkan
-                                    Masukkan Profile Picture.</p>
-                                @error('image')
-                                    <p class="text-sm text-red-600 w-full">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="w-full grid grid-cols-2 justify-cente gap-2 mb-4">
-                                <x-input-auth type="email" placeholder="Email" wire:model='email' :error="$errors->first('email')" />
-                                <x-input-auth type="number" placeholder="No.Telp" wire:model='phone'
-                                    :error="$errors->first('phone')" />
-                            </div>
-                            @if ($as == 'penyelenggara')
+                        @if ($as == 'penyelenggara')
+                            <form action="" class="" wire:submit.prevent='register'>
+                                <x-input-auth type="text" placeholder="Nama" wire:model='name' class="mb-4"
+                                    :error="$errors->first('name')" />
+                                <div class="mb-4">
+                                    <label class="block  text-sm font-medium text-gray-900 dark:text-white"
+                                        for="file_input">User Profile</label>
+                                    <input wire:model='image'
+                                        class="w-full border border-gray-500 placeholder-gray-500 text-gray-500 text-sm rounded-md shadow"
+                                        id="file_input" type="file">
+                                    <p class="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Silahkan
+                                        Masukkan Profile Picture.</p>
+                                    @error('image')
+                                        <p class="text-sm text-red-600 w-full">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="w-full grid grid-cols-2 justify-cente gap-2 mb-4">
+                                    <x-input-auth type="email" placeholder="Email" wire:model='email'
+                                        :error="$errors->first('email')" />
+                                    <x-input-auth type="number" placeholder="No.Telp" wire:model='phone'
+                                        :error="$errors->first('phone')" />
+                                </div>
                                 <x-input-auth type="text" placeholder="Nama Instansi Perlombaan"
                                     wire:model='instansi' class="mb-4" :error="$errors->first('instansi')" />
-                            @else
-                                <div class="w-full grid grid-cols-2 justify-cente gap-2 mb-4">
-                                    <div>
-                                        <select wire:model='univ' id="univ" name="univ"
-                                            class="w-full border border-gray-500 placeholder-gray-500 text-gray-500 text-sm p-2 rounded-md shadow">
-                                            <option value="0">Nama Universitas</option>
-                                            <option value="1">Universitas</option>
-                                        </select>
-                                        @error('univ')
-                                            <p class="text-sm text-red-600 w-full">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                    <x-input-auth type="number" placeholder="NIM" wire:model='nim' :error="$errors->first('nim')" />
+                                <div class="flex w-full relative mb-4">
+                                    <x-input-auth type="password" placeholder="Kata Sandi" wire:model='password'
+                                        :error="$errors->first('password')" />
+                                    <i class="fa-solid fa-eye absolute -right-0 top-2.5 px-2"></i>
                                 </div>
-                            @endif
-                            <div class="flex w-full relative mb-4">
-                                <x-input-auth type="password" placeholder="Kata Sandi" wire:model='password'
-                                    :error="$errors->first('password')" />
-                                <i class="fa-solid fa-eye absolute -right-0 top-2.5 px-2"></i>
-                            </div>
-                            <div class="flex w-full relative mb-4">
-                                <x-input-auth type="password" placeholder="Konfirmasi Kata Sandi"
-                                    wire:model='passwordConfirmation' :error="$errors->first('passwordConfirmation')" />
-                                <i class="fa-solid fa-eye absolute -right-0 top-2.5 px-2"></i>
-                            </div>
-                            <button type="submit"
-                                class="w-full text-center py-3 px-2 bg-[#A81818] rounded-md text-white hover:bg-red-900 hover:scale-95 hover:opacity-95 transition ease-in">
-                                Buat Akun
-                            </button>
-                        </form>
+                                <div class="flex w-full relative mb-4">
+                                    <x-input-auth type="password" placeholder="Konfirmasi Kata Sandi"
+                                        wire:model='passwordConfirmation' :error="$errors->first('passwordConfirmation')" />
+                                    <i class="fa-solid fa-eye absolute -right-0 top-2.5 px-2"></i>
+                                </div>
+                                <button type="submit"
+                                    class="w-full text-center py-3 px-2 bg-[#A81818] rounded-md text-white hover:bg-red-900 hover:scale-95 hover:opacity-95 transition ease-in">
+                                    Buat Akun
+                                </button>
+                            </form>
+                        @else
+                        <div
+                        class="flex flex-col space-y-4"
+                        >
+                            <a href="{{ route('microsoft_login') }}"
+                                class="w-full bg-gray-50 border border-slate-200 shadow rounded-md text-neutral-700 py-2 px-8 flex space-x-3 items-center hover:scale-95 hover:opacity-75 transition ease-in">
+                                <x-icons.microsoft-icon class="w-5 h-5 text-red-800" />
+                                <h5 class="text-base font-semibold">Registrasi dengan Microsoft</h5>
+                            </a>
+                            <a href="{{ route('google_login') }}"
+                            class="w-full bg-gray-50 border border-slate-200 shadow rounded-md text-neutral-700 py-2 px-8 flex space-x-3 items-center hover:scale-95 hover:opacity-75 transition ease-in">
+                            <x-icons.google-icon class="w-5 h-5 text-red-800" />
+                            <h5 class="text-base font-semibold">Registrasi dengan Google</h5>
+                        </a>
+                    </div>
+                        @endif
                     </div>
                 </div>
             @else
@@ -95,22 +93,20 @@
     </x-login-register>
 </div>
 @section('scripts')
-@script
-<script>
-    Alpine.data('register',()=>{
-        return{
-            name:'',
-            email:'',
-            image:'',
-            phone:'',
-            instansi:'',
-            univ:'',
-            nim:'',
-            password:'',
-            passwordConfirmation:'',
-            isLoading:false,
-        }
-    })
-</script>
-@endscript
+    @script
+        <script>
+            Alpine.data('register', () => {
+                return {
+                    name: '',
+                    email: '',
+                    image: '',
+                    phone: '',
+                    instansi: '',
+                    password: '',
+                    passwordConfirmation: '',
+                    isLoading: false,
+                }
+            })
+        </script>
+    @endscript
 @endsection

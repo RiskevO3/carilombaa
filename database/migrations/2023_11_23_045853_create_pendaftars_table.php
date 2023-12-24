@@ -12,9 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pendaftars', function (Blueprint $table) {
+        Schema::create('pendaftar', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Lomba::class)->constrained('lombas')->cascadeOnDelete();
+            $table->uuid('lomba_id')->references('id')->on('lomba')->onDelete('cascade');
             $table->string('nama_tim');
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pendaftars');
+        Schema::dropIfExists('pendaftar');
     }
 };

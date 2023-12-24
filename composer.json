@@ -15,8 +15,11 @@
         "laravel-frontend-presets/tall": "^7.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/socialite": "^5.11",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.2"
+        "livewire/livewire": "^3.2",
+        "socialiteproviders/google": "^4.1",
+        "socialiteproviders/microsoft": "^4.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",

@@ -18,7 +18,7 @@ class HomeLogin extends Component
 
     public function searchLomba(){
         if($this->search_lomba != '' && strlen($this->search_lomba) > 5){
-            $lomba_res = Lomba::where('title','like','%'.$this->search_lomba.'%')->limit(16)->get();
+            $lomba_res = Lomba::where('title','like','%'.$this->search_lomba.'%')->where('status',Lomba::STATUS_APPROVED)->limit(16)->get();
             if($lomba_res->count() <= 0){
                 $this->dispatch('toast:error',message:'Tidak ada lomba yang ditemukan dengan kata kunci '.$this->search_lomba,overlay:false);
                 $this->search_lomba = '';

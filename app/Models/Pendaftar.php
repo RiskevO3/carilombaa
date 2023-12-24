@@ -14,9 +14,11 @@ class Pendaftar extends Model
     use HasFactory;
     use HasUuids;
 
+    protected $table = 'pendaftar';
+
     protected $fillable = [
         'lomba_id',
-        'nama_time'
+        'nama_tim'
     ];
 
     public function lomba(): BelongsTo
@@ -24,9 +26,9 @@ class Pendaftar extends Model
         return $this->belongsTo(Lomba::class);
     }
 
-    public function user(): BelongsToMany
+    public function mahasiswa(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'user_pendaftar');
+        return $this->belongsToMany(Mahasiswa::class,'mahasiswa_pendaftar');
     }
 
     public function transaction(): HasMany

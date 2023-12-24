@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,9 +16,20 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasUuids;
+
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MAHASISWA = 'mahasiswa';
+    const ROLE_PENYELENGGARA = 'penyelenggara';
+
+    const ROLES = [
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_MAHASISWA => 'Mahasiswa',
+        self::ROLE_PENYELENGGARA => 'Penyelenggara',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,8 +40,7 @@ class User extends Authenticatable
         'name',
         'phone',
         'role',
-        'image_url',
-        'is_verified',
+        'image',
         'password',
     ];
 
@@ -53,22 +66,24 @@ class User extends Authenticatable
     ];
 
     public function getImage(){
-        $image_extension = explode('.', $this->image_url);
+        $image_extension = explode('.', $this->image);
         $ext = end($image_extension);
-        return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext;
+        return env('CLOUDINARY_URL') .$this->image.'.'.$ext;
     }
 
     public function resizeImage($width, $height){
-        $image_extension = explode('.', $this->image_url);
+        $image_extension = explode('.', $this->image);
         $ext = end($image_extension);
-        return env('CLOUDINARY_URL') .$this->image_url.'.'.$ext."?w=$width&h=$height&c=fill";
+        return env('CLOUDINARY_RESIZE').',h_'.$height.',w_'.$width.'/v1701024062'.'/'.$this->image.'.'.$ext;
     }
 
     public static function boot(){
         parent::boot();
         static::deleting(function($model){
             // delete data image from cloudinary
-            Storage::disk('cloudinary')->delete($model->image_url);
+            if($model->image != 'users/t2iz1ulsyrotuqwdgqjb.png'){
+                Storage::disk('cloudinary')->delete($model->image);
+            }
         });
     }
 
@@ -82,18 +97,20 @@ class User extends Authenticatable
         return $this->hasOne(Penyelenggara::class);
     }
 
-    public function lomba(): HasMany
+    public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasMany(Lomba::class);
+        return $this->isAdmin() || $this->isPenyelenggara();
     }
-
-    public function pendaftar(): BelongsToMany
+    public function isAdmin(): bool
     {
-        return $this->belongsToMany(Pendaftar::class,'user_pendaftar');
+        return $this->role === self::ROLE_ADMIN;
     }
-
-    public function transaction(): HasMany
+    public function isMahasiswa(): bool
     {
-        return $this->hasMany(Transaction::class);
+        return $this->role === self::ROLE_MAHASISWA;
+    }
+    public function isPenyelenggara(): bool
+    {
+        return $this->role === self::ROLE_PENYELENGGARA;
     }
 }

@@ -85,8 +85,8 @@
                     </div>
                 </div>
             </div>
-            <div class="container max-w-full relative">
-                <div class="grid grid-cols-4 gap-[24px]">
+            <div class="container max-w-full">
+                <div class="grid grid-cols-4 gap-4">
                     @foreach($list_lomba as $lomba)
                     <x-lomba-card :lomba="$lomba" />
                     @endforeach

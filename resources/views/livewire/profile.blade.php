@@ -77,16 +77,20 @@
                             Nama Lengkap <span class="text-red-800">*</span>
                         </h4>
                         <input type="text"
-                            class="py-[8px] px-[8px] bg-white border border-gray-300 rounded-md text-neutral-600"
-                            placeholder="Sarah Robert">
+                            class="py-[8px] px-[8px] bg-white disabled:bg-gray-300 border border-gray-300 rounded-md text-neutral-600"
+                            x-model="fullName"
+                            disabled
+                            >
                     </div>
                     <div class="flex flex-col space-y-[12px]">
                         <h4 class="text-stone-900 text-base font-semibold leading-tight">
                             Email <span class="text-red-800">*</span>
                         </h4>
                         <input type="email"
-                            class="py-[8px] px-[8px] bg-white border border-gray-300 rounded-md text-neutral-600"
-                            placeholder="example@youremail.com">
+                            class="py-[8px] px-[8px] bg-white disabled:bg-gray-300 border border-gray-300 rounded-md text-neutral-600"
+                            x-model="email"
+                            disabled
+                            >
                     </div>
                     <div class="flex flex-col space-y-[12px]">
                         <h4 class="text-stone-900 text-base font-semibold leading-tight">
@@ -94,7 +98,9 @@
                         </h4>
                         <input type="text"
                             class="py-[8px] px-[8px] bg-white border border-gray-300 rounded-md text-neutral-600"
-                            placeholder="Mahasiswa semester 5 di Universitas A">
+                            placeholder="Mahasiswa semester 5 di Universitas A"
+                            x-model="headline"
+                            >
                     </div>
                     <div class="flex space-x-[20px]">
                         <div class="w-full flex flex-col space-y-[12px]">
@@ -102,16 +108,20 @@
                                 Universitas <span class="text-red-800">*</span>
                             </h4>
                             <input type="text"
-                                class="w-full py-[8px] px-[8px] bg-white border border-gray-300 rounded-md text-neutral-600"
-                                placeholder="Universitas A">
+                                class="w-full py-[8px] px-[8px] bg-white disabled:bg-gray-300 border border-gray-300 rounded-md text-neutral-600"
+                                x-model="univ"
+                                disabled
+                                >
                         </div>
                         <div class="w-full flex flex-col space-y-[12px]">
                             <h4 class="text-stone-900 text-base font-semibold leading-tight">
                                 NIM <span class="text-red-800">*</span>
                             </h4>
                             <input type="text"
-                                class="w-full py-[8px] px-[8px] bg-white border border-gray-300 rounded-md text-neutral-600"
-                                placeholder="1202213">
+                                class="w-full py-[8px] px-[8px] bg-white disabled:bg-gray-300 border border-gray-300 rounded-md text-neutral-600"
+                                x-model="nim"
+                                disabled
+                                >
                         </div>
                     </div>
                 </div>
@@ -130,7 +140,9 @@
                         </h4>
                         <input type="text"
                             class="py-[8px] px-[8px] bg-white border border-gray-300 rounded-md text-neutral-600"
-                            placeholder="+62 123 4567 890">
+                            placeholder="+62 123 4567 890"
+                            x-model="phone"
+                            >
                     </div>
                     <div class="flex space-x-[20px]">
                         <div class="w-full flex flex-col space-y-[12px]">
@@ -152,14 +164,18 @@
                     </div>
                     <div class="flex space-x-[16px]">
                         <div class="flex space-x-[8px] items-center">
-                            <input id="male" type="radio" value="" name="default-radio"
-                                class="w-[24px] h-[24px] text-red-800 bg-gray-100 border-gray-500 focus:ring-red-800 focus:ring-2">
+                            <input id="male" type="radio" value="L" x-model="gender" name="default-radio"
+                                class="w-[24px] h-[24px] text-red-800 bg-gray-100 disabled:bg-gray-300 border-gray-500 focus:ring-red-800 focus:ring-2"
+                                :disabled="gender != 'L'"
+                                >
                             <label for="male"
                                 class="text-neutral-600 text-base font-normal leading-tight">Laki-Laki</label>
                         </div>
                         <div class="flex space-x-[8px] items-center">
-                            <input id="female" type="radio" value="" name="default-radio"
-                                class="w-[24px] h-[24px] text-red-800 bg-gray-100 border-gray-500 focus:ring-red-800 focus:ring-2">
+                            <input id="female" type="radio" value="P" x-model="gender" name="default-radio"
+                                class="w-[24px] h-[24px] text-red-800 bg-gray-100 disabled:bg-gray-300 border-gray-500 focus:ring-red-800 focus:ring-2"
+                                :disabled="gender != 'P'"
+                                >
                             <label for="female"
                                 class="text-neutral-600 text-base font-normal leading-tight">Perempuan</label>
                         </div>
@@ -218,10 +234,20 @@
                     email:'',
                     univ:'',
                     nim:'',
-                    
+                    phone:'',
+                    gender:'',
+                    headline:'',
                     async initProfile() {
-                        let imageUser = await $wire.getUserImage()
-                        this.imageUser = await imageUser
+                        let userData = await $wire.getUserData()
+                        this.imageUser = userData.image
+                        this.fullName = userData.name
+                        this.email = userData.email
+                        this.univ = userData.universitas
+                        this.nim = userData.nim
+                        this.phone = userData.phone
+                        this.gender = userData.jenisKelamin
+                        this.headline = userData.headline
+                        console.log(userData)
                     },
                     fileChosen(event) {
                         this.fileToDataUrl(event, src => this.imageUser = src)

@@ -10,7 +10,7 @@ class ProfileDetail extends Component
     public $user;
 
     public function mount(){
-        $this->user = Auth::user()->load('mahasiswa', 'pendaftar.lomba');
+        $this->user = Auth::user()->load('mahasiswa');
     }
     public function render()
     {

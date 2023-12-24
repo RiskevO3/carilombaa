@@ -27,7 +27,7 @@
                 <div class="flex w-full h-full p-10">
                     <div class="my-auto overflow-hidden rounded-lg">
                         <img src="{{ asset('assets/images/image-first-landing-page.jpeg') }}" alt=""
-                            srcset="object-cover object-center" loading="lazy"/>
+                            class="object-cover object-center" loading="lazy"/>
                     </div>
                 </div>
             </div>
