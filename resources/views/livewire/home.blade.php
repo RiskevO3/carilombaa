@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full grid grid-cols-5 gap-2 justify-center mx-auto 2xl:px-12">
+            <div class="w-full grid grid-cols-5 gap-2 justify-center mx-auto">
                 <div class="w-full relative h-10 mx-auto px-3">
                     <div
                         class="absolute w-60 2xl:w-72 h-15 bg-white rounded shadow-md px-6 py-2 group  transition ease-in">
