@@ -79,7 +79,7 @@
                                 </div>
                                 <button type="submit"
                                     class="mt-[46px] w-full text-center py-3 px-2 bg-[#A81818] rounded-md text-white hover:bg-red-900 hover:scale-95 hover:opacity-95 transition ease-in">
-                                    Buat Akun
+                                    Login
                                 </button>
                             </form>
                         @endif

@@ -5,7 +5,6 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,38 +18,25 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class AdminPanelProvider extends PanelProvider
+class PenyelenggaraPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
-            ->login()
+            ->id('penyelenggara')
+            ->path('penyelenggara')
             ->colors([
                 'primary' => Color::Red,
             ])
-            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
-            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
+            ->discoverResources(in: app_path('Filament/Penyelenggara/Resources'), for: 'App\\Filament\\Penyelenggara\\Resources')
+            ->discoverPages(in: app_path('Filament/Penyelenggara/Pages'), for: 'App\\Filament\\Penyelenggara\\Pages')
             ->pages([
-
+                Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Penyelenggara/Widgets'), for: 'App\\Filament\\Penyelenggara\\Widgets')
             ->widgets([
-
-            ])
-            ->navigationGroups([
-                NavigationGroup::make()
-                ->label('Penyelenggara Lomba')
-                ->icon('icon-upload'),
-                NavigationGroup::make()
-                ->label('User Management')
-                ->icon('icon-upload'),
-                NavigationGroup::make()
-                ->label('User All')
-                ->icon('heroicon-o-user-group'),
-
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -65,8 +51,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->spa()
-            ;
+            ]);
     }
 }

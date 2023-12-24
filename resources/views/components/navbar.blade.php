@@ -33,7 +33,7 @@
                     </li>
                     @else
                     <li>
-                        <a href="/admin"
+                        <a href="/penyelenggara"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                     </li>
                     @endif
@@ -116,7 +116,7 @@
 </div>
 </div>
 @else
-<nav class="container max-w-screen-2xl bg-white border-gray-200">
+<nav class="container max-w-screen-2xl bg-white border-gray-200 mx-auto">
 <div class="flex items-center justify-between p-4">
     <img src="{{ asset('assets/images/logo-carilomba.png') }}" alt="" srcset="" class="h-[30px] w-[144px] object-cover object-center"/>
     <div class="flex items-center space-x-[32px]">

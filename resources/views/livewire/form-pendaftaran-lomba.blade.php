@@ -76,17 +76,6 @@
                 </div>
             </template>
             <div class="container">
-                <h3 class="text-stone-900 text-2xl font-medium">Bukti KTM<span class="text-red-800">*</span></h3>
-                <div class="container mt-[24px] p-[32px] border border-slate-200 rounded-lg">
-                    <h5 class="text-stone-900 text-sm font-semibold leading-tight">Bukti KTM Digital Tiap Anggota</h5>
-                    <input type="file" id="upload" class="hidden"/>
-                    <label for="upload" class="mt-[12px] py-[15px] px-[18px] bg-[#f8f9fa] border border-[#cfd5db] rounded-md inline-flex justify-between space-x-[8px] hover:scale-95 hover:opacity-75 transition ease-in">
-                        <p class="text-zinc-600 text-sm font-semibold leading-tight">Tambah Berkas</p>
-                        <x-icons.upload-file-icon class="self-center w-[16px] h-[16px] text-gray-700"/>
-                    </label>
-                </div>
-            </div>
-            <div class="container">
                 <h3 class="text-stone-900 text-2xl font-medium">Bukti Pembayaran<span class="text-red-800">*</span></h3>
                 <div class="container mt-[24px] p-[32px] border border-slate-200 rounded-lg">
                     <h5 class="text-stone-900 text-sm font-semibold leading-tight">Bukti Pembayaran</h5>
