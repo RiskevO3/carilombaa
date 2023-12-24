@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateLomba extends CreateRecord
 {
     protected static string $resource = LombaResource::class;
+    protected static ?string $title = 'Buat Lomba';
 }
