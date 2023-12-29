@@ -130,7 +130,7 @@ class LombaResource extends Resource
                     return 'Sedang Berlangsung/Akan Datang';
                 })
                 ->badge()
-                ->color(fn ($state) => $state->isPast() ? 'success' : 'primary')
+                ->color(fn ($state) => $state->isPast() ? 'success' : 'info')
                 ,
                 TextColumn::make('pendaftar_count')
                 ->label('Jumlah Pendaftar')

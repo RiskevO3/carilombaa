@@ -2,7 +2,7 @@
 <div class="overflow-hidden rounded-md bg-white shadow">
     <div class="relative">
         <img src="{{ $lomba->getImage() }}" alt="" srcset=""
-        class="object-cover object-center" loading="lazy" 
+        class="h-[224px] w-full object-cover object-center" loading="lazy" 
         />
         <div class="absolute right-3 top-3 p-[10px] bg-red-800 border border-red-800 rounded shadow">
             <p class="text-white font-medium text-sm leading-tight">{{ $lomba->category->name }}</p>
